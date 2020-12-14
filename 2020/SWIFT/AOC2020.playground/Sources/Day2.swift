@@ -1,41 +1,62 @@
 import Foundation
 
 public func day2(){
-    let passwords = day2Input.split(separator: "\n").map { Password(string: String($0))}
+    // day2 part one
+    let passwords = day2Input.split(separator: "\n").map { Password(string: String($0)) }
     var valid = 0
     for password in passwords{
-        if password.isValide(){
+        if password.isValid(){
+            valid += 1
+        }
+    }
+    print(valid)
+    
+    // day2 part two
+    
+    valid = 0
+    for password in passwords {
+        if password.isValid2(){
             valid += 1
         }
     }
     print(valid)
 }
 
-
-
 struct Password {
     let letter: Character
-    let minimum: Int
+    let min: Int
     let max: Int
     let password: String
     
-    init(string: String){
-        let comps = string.split(separator: " ").map({ String($0) })
-        let minMax = comps[0].split(separator: "-").map({ String($0) })
-        self.minimum = Int(String(minMax[0]))!
+    init(string: String) {
+        let comps = string.split(separator: " ").map({ String($0)} )
+        let minMax = comps[0].split(separator: "-").map({ String($0)})
+        self.min = Int(String(minMax[0]))!
         self.max = Int(String(minMax[1]))!
         self.letter = Array(comps[1])[0]
-        self.password = minMax[2]
+        self.password = comps[2]
+    }
+    
+    
+    func isValid() -> Bool{
+        let letters = Array(self.password)
+        var total = 0
+        for letter in letters{
+            if letter == self.letter {total += 1}
+        }
+        
+        return total >= self.min && total <= self.max
+    }
+    
+    
+    func isValid2() -> Bool {
+        let letters = Array(self.password)
+        let firstPosition = letters[self.min - 1] == self.letter ? 1 : 0
+        let secondPosition = letters[self.max - 1] == self.letter ? 1 : 0
+        return firstPosition ^ secondPosition != 0
     }
 }
 
-public func isValide() -> Bool {
-    let letters = Array(password)
-    var total = 0
-    for letter in letters{
-        
-    }
-}
 
 
 let day2Input = """
@@ -1039,7 +1060,4 @@ let day2Input = """
 5-10 w: zzcwwwwwwkwwwqws
 1-7 c: ccrmhdchwbr
 7-11 g: xzgnggggrggrg
-
-
-
 """

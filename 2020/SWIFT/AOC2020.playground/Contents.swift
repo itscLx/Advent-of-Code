@@ -6,10 +6,10 @@ let input = content("input")
     .compactMap(Int.init)
 
 
-partOne(input: input)
+print("----------DAY ONE----------")
 
+partOne(input: input)
 partTwo(input: input)
 
-
-//day2
+print("----------DAY TWO----------")
 day2()
