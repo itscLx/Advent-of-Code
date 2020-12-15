@@ -13,3 +13,6 @@ partTwo(input: input)
 
 print("----------DAY TWO----------")
 day2()
+
+print("----------DAY THREE----------")
+day3()
